@@ -1,21 +1,13 @@
 {
-  "name": "Java",
+  "name": "Java Development",
   "dockerFile": "Dockerfile",
-  "features": {
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "none",
-      "installMaven": "true",
-      "installGradle": "true"
-    },
-    "ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {}
+  "settings": {
+    "java.home": "/usr/lib/jvm/java-17-openjdk"
   },
-  "postCreateCommand": "echo \"This file was added by the postCreateCommand.\" > TEMP.md",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "streetsidesoftware.code-spell-checker",
-        "vscjava.vscode-java-pack"
-      ]
-    }
-  }
+  "extensions": [
+    "vscjava.vscode-java-pack",
+    "vscjava.vscode-maven",
+    "vscjava.vscode-java-debug"
+  ],
+  "postCreateCommand": "echo 'Java development environment setup complete!'"
 }

@@ -1,10 +1,6 @@
-FROM mcr.microsoft.com/devcontainers/java:0-17
+# Use the official Java image with JDK 17
+FROM mcr.microsoft.com/vscode/devcontainers/java:17
 
-# Install JDK 17 if not already included
-RUN apt-get update && apt-get install -y \
-    openjdk-17-jdk \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set JAVA_HOME environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
+# Install additional tools if needed
+RUN apt-get update && \
+    apt-get install -y maven gradle
