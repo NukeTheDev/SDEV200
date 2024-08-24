@@ -2,7 +2,7 @@
   "name": "Java Development",
   "dockerFile": "Dockerfile",
   "settings": {
-    "java.home": "/usr/lib/jvm/java-17-openjdk"
+    "java.home": "/usr/lib/jvm/java-17-openjdk-amd64"
   },
   "extensions": [
     "vscjava.vscode-java-pack",
