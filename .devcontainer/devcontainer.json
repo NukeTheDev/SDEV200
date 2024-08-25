@@ -1,5 +1,5 @@
 {
-  "name": "Java Development",
+  "name": "Java Development with GUI",
   "dockerFile": "Dockerfile",
   "customizations": {
     "vscode": {
@@ -17,5 +17,5 @@
       ]
     }
   },
-  "postCreateCommand": "echo 'Java development environment setup complete!'"
+  "postCreateCommand": "echo 'Java development with GUI environment setup complete!'"
 }
