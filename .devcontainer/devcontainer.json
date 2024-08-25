@@ -1,7 +1,7 @@
 {
-  "name": "Java Development with GUI",
+  "name": "Java Development",
   "dockerFile": "Dockerfile",
-  "customizations": {
+    "customizations": {
     "vscode": {
       "settings": {
         "java.configuration.runtimes": [
@@ -17,5 +17,5 @@
       ]
     }
   },
-  "postCreateCommand": "echo 'Java development with GUI environment setup complete!'"
+    "postCreateCommand": "echo 'Java development environment setup complete!'"
 }
