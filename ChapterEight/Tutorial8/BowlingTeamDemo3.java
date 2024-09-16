@@ -39,11 +39,14 @@ public class BowlingTeamDemo3
         }
         System.out.println("\n\nEnter a team name to see it's roster");
         name = input.nextLine();
+        System.out.print("%n");
         for(y = 0; y < teams.length; ++y)
         {
             if (name.equals(teams[y].getTeamName()))
+            {
                 for(x = 0; x < NUM_TEAM_MEMBERS; ++x)
                     System.out.print(teams[y].getMember(x) + " ");
+            }
         }
     }
 }

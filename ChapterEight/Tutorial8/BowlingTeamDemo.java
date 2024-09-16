@@ -12,12 +12,12 @@ public class BowlingTeamDemo
         int x;
         final int NUM_TEAM_MEMBERS = 4;
         Scanner input = new Scanner(System.in);
-        System.out.print("");
+        System.out.print("Enter team name >> ");
         name = input.nextLine();
         bowlTeam.setTeamName(name);
         for(x = 0; x < NUM_TEAM_MEMBERS; ++x)
         {
-            System.out.print("Enter team member's name >> ");
+            System.out.printf("Enter team member's name >> ");
             name = input.nextLine();
             bowlTeam.setMember(x, name);
         }
