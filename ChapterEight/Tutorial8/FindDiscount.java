@@ -1,3 +1,5 @@
+// Charles "Nuke" Phillips
+// Figure 8-13
 package ChapterEight.Tutorial8;
 
 import javax.swing.*;

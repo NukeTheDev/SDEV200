@@ -1,5 +1,5 @@
 // Charles "Nuke" Phillips
-// p. 275
+// p. 275 Figure 8-4
 
 package ChapterEight.Tutorial8;
 
