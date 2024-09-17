@@ -2,10 +2,10 @@
 // p.177
 package ChapterFive.Tutorial5;
 
-public class ShortCircuitTestAnd {
+public class ShortCircuitTestOr {
     public static void main(String[] args) 
     {
-        if(trueMethod() && falseMethod()) 
+        if(falseMethod() || trueMethod()) 
             System.out.println("Both are true");
         else 
             System.out.println("Both are true");

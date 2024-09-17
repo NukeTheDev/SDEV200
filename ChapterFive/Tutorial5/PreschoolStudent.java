@@ -1,3 +1,5 @@
+// Charles "Nuke" Phillips
+// p. 192
 package ChapterFive.Tutorial5;
 
 public class PreschoolStudent 
@@ -15,25 +17,25 @@ public class PreschoolStudent
 
     public void setIdNum(int num)
     {
-        if(num <= HIGH_ID){
+        if(num <= HIGH_ID)
             idNum = num;
-        } else {
+        else 
             idNum = 0;
-        }
     }
     public void setAge(int studentAge)
     {
-        if (studentAge <= HIGH_AGE){
+        if (studentAge <= HIGH_AGE)
             age = studentAge;
-        } else {
+        else 
             age = 0;
-        }
     }
 
-    public int getIdNum() {
+    public int getIdNum() 
+    {
         return idNum;
     }
-    public int getAge() {
+    public int getAge() 
+    {
         return age;
     }
 }

@@ -1,6 +1,5 @@
 // Charles "Nuke" Phillips
 // p. 192
-
 package ChapterFive.Tutorial5;
 
 public class PreschoolDemo {
@@ -17,8 +16,8 @@ public class PreschoolDemo {
     }
     public static void display(PreschoolStudent ps)
     {
-        System.out.println("Student ID " + ps.getIdNum());
-        System.out.println("  Student age " + ps.getAge());
+        System.out.print("Student ID " + ps.getIdNum());
+        System.out.println(" Student age " + ps.getAge());
         System.out.println();
     }
 }
