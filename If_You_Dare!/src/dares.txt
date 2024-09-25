@@ -1,0 +1,12 @@
+What is the capital of Washington?;30;High;Geography;20;Olympia
+What is 2(9 + 3) - 6?;30;Medium;Math;15;24
+Name three countries in South America.;45;High;Geography;25;Argentina,Brazil,Chile
+What is the largest planet in our solar system?;20;Easy;Science;10;Jupiter
+Spell the word "supercalifragilisticexpialidocious.";60;High;Language;30;supercalifragilisticexpialidocious
+What is 5 + 7 × 2?;30;Medium;Math;15;19
+Who painted the Mona Lisa?;40;Medium;Art;20;Leonardo da Vinci
+What is the square root of 144?;20;Easy;Math;10;12
+In which year did the Titanic sink?;30;High;History;25;1912
+What is the chemical symbol for water?;20;Easy;Science;5;H2O
+What is the capital of France?;30;High;Geography;20;Paris
+What is 15% of 200?;30;Medium;Math;15;30
