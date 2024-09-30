@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UseDinnerPartyWithConstructor",
+            "request": "launch",
+            "mainClass": "ChapterNine.Tutorial9.UseDinnerPartyWithConstructor",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "MethodsThatUseAnEmployee",
+            "request": "launch",
+            "mainClass": "ChapterFour.Excercise4_5.MethodsThatUseAnEmployee",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
             "name": "ExceptionDemo",
             "request": "launch",
             "mainClass": "ChapterTen.Tutorial10.ExceptionDemo",
