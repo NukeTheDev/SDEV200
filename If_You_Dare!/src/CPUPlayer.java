@@ -4,9 +4,9 @@ public class CPUPlayer extends Player
 {
     private static final String[] CPU_NAMES = {"Woody", "Skipper", "Wolf", "Jax", "King", "Sizzle", "Twist", "Violet"};
 
-    public CPUPlayer(int startingPoints) 
+    public CPUPlayer(int startingPoints)
     {
-        super(generateRandomName(), 0, startingPoints, true);;
+        super(generateRandomName(), startingPoints);
     }
     private static String generateRandomName() 
     {

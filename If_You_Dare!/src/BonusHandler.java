@@ -11,31 +11,13 @@ public class BonusHandler
         if (collectedCards.size() >= 3) {
             // Check for 3 dares in a row (any 3)
             awardBonus(player, 2, 5, "3 consecutive dares");
-            // Check for 3 dares of the same category
-            if (hasThreeOfSameCategory(collectedCards)) {
-                awardBonus(player, 5, 9, "3 dares in the same category");
-            }
             // Check for 3 dares of the same difficulty
-            else if (hasThreeOfSameDifficulty(collectedCards)) {
+            if (hasThreeOfSameDifficulty(collectedCards)) {
                 awardBonus(player, 10, 15, "3 dares of the same difficulty");
             }
         }
     }
-    // Check if the player has 3 dares of the same category
-    private boolean hasThreeOfSameCategory(List<DareCard> collectedCards) {
-        int funnyCount = 0, grossCount = 0, boldCount = 0;
-
-        for (DareCard card : collectedCards) {
-            switch (card.getCategory()) 
-            {
-                case "funny": funnyCount++; break;
-                case "gross": grossCount++; break;
-                case "bold": boldCount++; break;
-            }
-        }
-
-        return funnyCount >= 3 || grossCount >= 3 || boldCount >= 3;
-    }
+    
     // Check if the player has 3 dares of the same difficulty
     private boolean hasThreeOfSameDifficulty(List<DareCard> collectedCards) {
         int easyCount = 0, mediumCount = 0, hardCount = 0;

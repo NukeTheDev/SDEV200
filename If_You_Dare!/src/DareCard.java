@@ -6,7 +6,8 @@ public class DareCard {
     private int worth;
     private String answer;
 
-    public DareCard(String question, int timeLimit, String difficulty, String category, int worth, String answer) {
+    public DareCard(String question, int timeLimit, String difficulty, String category, int worth, String answer) 
+    {
         this.question = question;
         this.timeLimit = timeLimit;
         this.difficulty = difficulty;
@@ -35,7 +36,8 @@ public class DareCard {
         return worth;
     }
 
-    public String getAnswer() {
+    public String getAnswer() 
+    {
         return answer;
     }
 }

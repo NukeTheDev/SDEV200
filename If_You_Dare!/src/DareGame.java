@@ -141,7 +141,7 @@ public class DareGame {
             numPlayers = Integer.parseInt(numPlayersStr);
             for (int i = 0; i < numPlayers; i++) {
                 String playerName = JOptionPane.showInputDialog("Enter name for Player " + (i + 1) + ":");
-                players.add(new Player(playerName, 0, startingPoints, true));
+                players.add(new Player(playerName, startingPoints));
             }
         }
 
@@ -240,6 +240,7 @@ public class DareGame {
         if (timeTaken <= 10) 
         {
             earnedPoints = dareCard.getWorth() + 10; // Fast completion bonus
+            JOptionPane.showMessageDialog(null, "Slick trick! You earned 10 bonus points");
         } 
         else if (timeTaken <= 20) 
         {
@@ -248,6 +249,7 @@ public class DareGame {
         else 
         {
             earnedPoints = dareCard.getWorth() - 10; // Slower completion penalty
+            JOptionPane.showMessageDialog(null, "Speed it next time! -10 points");
         }
 
         player.setScore(player.getScore() + earnedPoints);
@@ -267,6 +269,7 @@ public class DareGame {
             {
                 pointsDeducted = dareCard.getWorth(); // Lose the full amount of points for failure
             }
+            player.setScore(player.getScore() - pointsDeducted); // Penalty for dare refusal or failure
 
             // Check for elimination
             if (player.getScore() <= 0)
@@ -279,7 +282,6 @@ public class DareGame {
                 } 
             }
 
-            player.setScore(player.getScore() - pointsDeducted); // Penalty for dare refusal or failure
             JOptionPane.showMessageDialog(null, player.getPlayerName() + " " + reason + " the dare! \n Points deducted: " + pointsDeducted + "\nNew score: " + player.getScore());
     
             // Check if game is over

@@ -8,16 +8,16 @@ public class Player
     private boolean isActive;
     private List<DareCard> collectedDareCards; // Collection to store collected dare cards
 
-    public Player(String name)
+    public Player(String name, int pts)
     {
-        this(name, 0, 10, true);
+        this(name, 0, pts, true);
         this.collectedDareCards = new ArrayList<>(); // Initialize the list  
     }
 
-    public Player(String name, int qty, int pts, boolean state) {
+    public Player(String name, int qty, int pts, boolean state) 
+    {
         this.playerName = name; this.cardQty = qty;  
         this.points = pts; this.isActive = state;
-        this.collectedDareCards = new ArrayList<>(); // Initialize the list
     }
 
     // Getter for player name
