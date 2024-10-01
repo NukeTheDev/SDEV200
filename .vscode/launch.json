@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CreateFilesBasedOnState",
+            "request": "launch",
+            "mainClass": "ChapterEleven.Tutorial11.CreateFilesBasedOnState",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
             "name": "UseDinnerPartyWithConstructor",
             "request": "launch",
             "mainClass": "ChapterNine.Tutorial9.UseDinnerPartyWithConstructor",
