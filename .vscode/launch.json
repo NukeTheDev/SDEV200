@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CreateFilesBasedOnState",
+            "request": "launch",
+            "mainClass": "ChapterEleven.Tutorial11.CreateFilesBasedOnState",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "UseDinnerPartyWithConstructor",
+            "request": "launch",
+            "mainClass": "ChapterNine.Tutorial9.UseDinnerPartyWithConstructor",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "MethodsThatUseAnEmployee",
+            "request": "launch",
+            "mainClass": "ChapterFour.Excercise4_5.MethodsThatUseAnEmployee",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "ExceptionDemo",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.ExceptionDemo",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "UseAnimals",
+            "request": "launch",
+            "mainClass": "ChapterNine.Tutorial9_2.UseAnimals",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "InsuredCarDemo",
+            "request": "launch",
+            "mainClass": "ChapterNine.Tutorial9_2.InsuredCarDemo",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "VehicleDatabase",
+            "request": "launch",
+            "mainClass": "ChapterNine.Tutorial9_2.VehicleDatabase",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "DareGame",
+            "request": "launch",
+            "mainClass": "DareGame",
+            "projectName": "workspace_1b93b146"
+        }
+    ]
+}

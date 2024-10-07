@@ -1,0 +1,24 @@
+{
+    "name": "Java Development Container",
+    "dockerFile": "Dockerfile",
+    "context": ".",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "java.jdt.ls.java.home": "/usr/lib/jvm/java-17-openjdk-amd64"
+            },
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "redhat.java",
+                "vscjava.vscode-maven",
+                "vscjava.vscode-gradle"
+            ]
+        }
+    },
+    "postCreateCommand": "mvn clean install",  // Optional: Customize based on your project needs
+    "remoteUser": "vscode",
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    ]
+}
