@@ -33,7 +33,7 @@ public class ExceptionDemo2
         catch(ArithmeticException e)
         {
             JOptionPane.showMessageDialog(null, 
-            "Please enter valid integers.");
+            e.getMessage());
         }
         catch(NumberFormatException exception)
         {
