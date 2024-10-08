@@ -15,7 +15,7 @@
             ]
         }
     },
-    "postCreateCommand": "mvn clean install",  // Optional: Customize based on your project needs
+    "postCreateCommand": "java -version", // Optional: Verifies Java is installed
     "remoteUser": "vscode",
     "workspaceFolder": "/workspace",
     "mounts": [

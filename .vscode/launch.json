@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CalculatorDemo",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.CalculatorDemo",
+            "projectName": "SDEV200_1fc295ae"
+        },
+        {
+            "type": "java",
+            "name": "CalculatorDemo",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.CalculatorDemo",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
             "name": "CreateFilesBasedOnState",
             "request": "launch",
             "mainClass": "ChapterEleven.Tutorial11.CreateFilesBasedOnState",
