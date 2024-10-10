@@ -1,3 +1,5 @@
+// Charles "Nuke" Phillips
+// p. 476
 package ChapterEleven.Excercise11_7;
 
 import java.io.*;
