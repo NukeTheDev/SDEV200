@@ -1,9 +1,8 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import javax.swing.*;
 
 public class DareGame {
     private List<Player> players; // Array of player objects
@@ -11,7 +10,7 @@ public class DareGame {
     private int gameMode; // 1 = Classic, 2 = Elimination, 3 = Time Attack
     private int difficulty; // 1 = Easy, 2 = Medium, 3 = Hard
     private int startingPoints; // The amount each player begins the game with
-    private BonusHandler bonusHandler;
+    private BonusHandler bonusHandler; // Future feature
     private DareLoader dareLoader;
     private boolean gameActive;
     private int timeAttackLimit; // Time for Time Attack mode
