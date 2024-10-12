@@ -1,85 +1,51 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class Player 
+public abstract class Player 
 {
-    private String playerName; 
-    private int cardQty; private int points; 
-    private boolean isActive;
-    private List<DareCard> collectedDareCards; // Collection to store collected dare cards
+    private final String playerName;
+    private int cardQty;
+    private int score;
+    private boolean active;
 
-    public Player(String name, int pts)
+    public Player(String playerName) 
     {
-        this(name, 0, pts, true);
-        this.collectedDareCards = new ArrayList<>(); // Initialize the list  
+        this.playerName = playerName;
+        this.cardQty = 0;
+        this.score = 0;
+        this.active = true;
     }
 
-    public Player(String name, int qty, int pts, boolean state) 
-    {
-        this.playerName = name; this.cardQty = qty;  
-        this.points = pts; this.isActive = state;
-    }
-
-    // Getter for player name
     public String getPlayerName() 
     {
-        return playerName;  
+        return playerName;
     }
 
-    // Getter for points (score)
-    public int getScore() {
-        return points;
+    public int getScore() 
+    {
+        return score;
     }
 
-    // Setter for player name (optional, depending on your need)
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    // Setter for points (score)
-    public void setScore(int points) {
-        this.points = points;
-    }
-
-    // Getter for card quantity
-    public int getCardQty() {
+    public int getCardQty(int qty) 
+    {
         return cardQty;
     }
 
-    // Setter for card quantity
-    public void setCardQty(int cardQty) {
-        this.cardQty = cardQty;
-    }
-
-    // Combined setter for points and card quantity
-    public void setScore(int pts, int qty) {
-        this.points = pts;
+    public void setCardQty(int qty) 
+    {
         this.cardQty = qty;
     }
 
-    // Getter for player's active state
-    public boolean isActive() { 
-        return isActive; 
-    }
-
-    // Setter for player's active state
-    public void setActive(boolean active) {
-        this.isActive = active;
-    }
-
-    // Method to eliminate a player
-    public void eliminate() { 
-        this.isActive = false;  
-    }
-
-    // Method to add a collected dare card
-    public void collectDareCard(DareCard dareCard) {
-        collectedDareCards.add(dareCard);
-    }
-
-    // Getter for collected dare cards
-    public List<DareCard> getCollectedDareCards() 
+    public void setScore(int score) 
     {
-        return collectedDareCards;
+        this.score = score;
     }
+
+    public boolean isActive() 
+    {
+        return active;
+    }
+
+    public void eliminate() 
+    {
+        this.active = false;
+    }
+    public abstract boolean isCPU();
 }
