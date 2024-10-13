@@ -37,14 +37,11 @@ public class DareCard {
                     dareCards.add(new DareCard(dareText, timeLimit, difficulty, category, worth, answer));
                 }
             }
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             System.err.println("Error reading dares CSV file: " + e.getMessage());
         }
         return dareCards;
-    }
-
-    public boolean validateAnswer(String userAnswer) {
-        return userAnswer.equalsIgnoreCase(answer);
     }
 
     public String getdareText() {
@@ -67,19 +64,21 @@ public class DareCard {
         return worth;
     }
 
-    public String getAnswer() {
-        return answer;
+    public boolean isCorrect(String userAnswer) {
+        return userAnswer.equalsIgnoreCase(answer);
     }
 
     // toString method for display a dare card
     @Override
     public String toString() {
-        return String.format(
-            "\nDare: %s\n" +
-            "Time Limit: %d seconds\n" +
-            "Difficulty: %s\n" +
-            "Category: %s\n" +
-            "Worth: %d points\n",
+        return String.format("""
+                             
+                             Dare: %s
+                             Time Limit: %d seconds
+                             Difficulty: %s
+                             Category: %s
+                             Worth: %d points
+                             """,
             dareText, timeLimit, difficulty, category, worth
         );
     }

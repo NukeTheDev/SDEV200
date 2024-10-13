@@ -23,7 +23,7 @@ public abstract class Player
         return score;
     }
 
-    public int getCardQty(int qty) 
+    public int getCardQty() 
     {
         return cardQty;
     }
