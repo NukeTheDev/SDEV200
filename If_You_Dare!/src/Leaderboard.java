@@ -82,7 +82,7 @@ public class Leaderboard
     public static void createEmptyFile(Path file, String s)
     {
         System.out.print("s = " + s);
-        final int NUMRECS = 10; // top 10 players
+        final int NUMRECS = 100; // top 100 players
         try
         {
             OutputStream outputStr =
