@@ -1,4 +1,5 @@
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Classic extends GameMode 
 {
@@ -20,10 +21,13 @@ public class Classic extends GameMode
     }
 
     @Override
-    public void playRound() {
-        for (Player player : players) {
+    public void playRound() 
+    {
+        for (Player player : players) 
+        {
             playTurn(player);
-            if (!gameActive) {
+            if (!gameActive) 
+            {
                 break;
             }
         }
@@ -32,18 +36,19 @@ public class Classic extends GameMode
     @Override
     protected void checkGameState() 
     {
-        for (Player player : players) {
-            if (player.getScore() >= pointThreshold) {
+        for (Player player : players) 
+        {
+            if (player.getScore() >= pointThreshold) 
+            {
                 gameActive = false;
+                setWinner(player); // set the winner
             }
         }
     }
+
     @Override
-    protected Player determineWinner()
+    protected void announceWinner()
     {
-        for (Player player : players)
-            if (player.getScore() >= pointThreshold)
-                winner = player;
-        return winner;
+        JOptionPane.showMessageDialog(null, winner.getPlayerName() + "Has reached" + pointThreshold + "points!");
     }
 }

@@ -8,7 +8,7 @@ public abstract class GameMode {
     protected List<Player> players;
     protected List<DareCard> dareCards;
     protected boolean gameActive = true;
-    protected Player winner;
+    protected Player winner; // The winner of the game
 
     public GameMode(Difficulty difficulty, List<Player> players, List<DareCard> dareCards) {
         this.difficulty = difficulty;
@@ -21,7 +21,18 @@ public abstract class GameMode {
         return !gameActive;
     }
 
-    protected abstract Player determineWinner();
+    protected void setWinner(Player player)
+    {
+        winner = player;
+        System.out.println("Winner: " + winner);
+    }
+    
+    protected Player getWinner()
+    {
+        return winner;
+    }
+
+    protected abstract void announceWinner();
 
     public abstract void playRound();
 

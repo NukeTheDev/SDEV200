@@ -73,13 +73,13 @@ public class DareCard {
     public String toString() {
         return String.format("""
                              
-                             Dare: %s
+                             Dare details:
                              Time Limit: %d seconds
                              Difficulty: %s
                              Category: %s
                              Worth: %d points
                              """,
-            dareText, timeLimit, difficulty, category, worth
+            timeLimit, difficulty, category, worth
         );
     }
 }

@@ -25,9 +25,9 @@ public class TimeAttack extends GameMode
         }
         JOptionPane.showMessageDialog(null, "Time is up!");
         gameActive = false; // Time's up, end the game
+        setWinner(determineWinner());
     }
 
-    @Override
     protected Player determineWinner()
     {
         Player winner = players.get(0); // initialize winner
@@ -43,14 +43,17 @@ public class TimeAttack extends GameMode
                 winner = player; // Update the winner if the current player has a higher total
             }
         }
-
-        // Print out the winning player's details
-        System.out.println("Winner: " + winner.getPlayerName() + " with score: " + winner.getScore() + " and card quantity: " + winner.getCardQty());
         return winner; // Return the winning player
     }
 
     @Override
     protected void checkGameState() {
         // No special check, game ends after time limit
+    }
+    @Override
+    protected void announceWinner()
+    {
+        // Print out the winning player's details
+        System.out.println("Winner: " + winner.getPlayerName() + " with score: " + winner.getScore() + " and card quantity: " + winner.getCardQty());
     }
 }

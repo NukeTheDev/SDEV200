@@ -28,13 +28,13 @@ public class Tutorial {
             "4. The player with the most points and dares when the timer runs out wins."
         };
 
+        // Show a beginner tutorial on how to play the game
+        showUserTutorial();
+
         // Show the instructions for each game mode
         showGameInstructions("Classic Mode", classicModeInstructions);
         showGameInstructions("Elimination Mode", eliminationModeInstructions);
         showGameInstructions("Time Attack Mode", timeAttackModeInstructions);
-
-        // Show a beginner tutorial on how to play the game
-        showUserTutorial();
     }
 
     // Method to show instructions for each game mode

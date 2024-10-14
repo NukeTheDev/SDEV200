@@ -48,13 +48,14 @@ public class Elimination extends GameMode
 
         if (activePlayers <= 1) {
             gameActive = false;
+            setWinner(players.get(0)); // last player left standing
+
         }
     }
+
     @Override
-    protected Player determineWinner()
+    protected void announceWinner()
     {
-        winner = players.get(0);
-        JOptionPane.showMessageDialog(null, "Game over!" + winner.getPlayerName() + "is the only one player left in the game!");
-        return winner;
+        JOptionPane.showMessageDialog(null, "Congratulations!" + winner.getPlayerName() + "you are the last player left standing.");
     }
 }

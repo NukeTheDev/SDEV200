@@ -1,83 +1,148 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import static java.nio.file.StandardOpenOption.*;
+import javax.swing.JOptionPane;
 
-public class Leaderboard {
-    private final String playerName;
-    private final int timeLimit; // in seconds
-    private final String difficulty;
-    private final String category;
-    private final int worth;
-    private final String answer;
+public class Leaderboard
+{
+    final String RANK_FORMAT = "000";
+    final String POINTS_FORMAT = RANK_FORMAT;
+    final String CARD_FORMAT = "00"; // Position on the leaderboards
+    final String NAME_FORMAT = "          ";
+    final int NAME_LENGTH = NAME_FORMAT.length();
+    int HIGHEST_POINT_AMT;
+    int HIGHEST_CARD_QTY;
+    String delimiter = ",";
+    String s = RANK_FORMAT + delimiter + NAME_FORMAT +
+    delimiter + POINTS_FORMAT + delimiter + CARD_FORMAT +
+    System.getProperty("line.separator");
+    final int RECSIZE = s.length();
+    FileChannel fc = null;
+    int rank;
+    String name;
+    int points;
+    double cardQty;
 
-    public Leaderboard(String playerName, int timeLimit, String difficulty, String category, int points, String answer) {
-        this.playerName = dareText;
-        this.timeLimit = timeLimit;
-        this.difficulty = difficulty;
-        this.category = category;
-        this.worth = points;
-        this.answer = answer;
+    private Player winner;
+    private Path leaderboardFile;
+    public Leaderboard(Path file)
+    {
+        this.leaderboardFile = file;
+        displayLeaderboard();
+    }
+    public Leaderboard(Player player, Path file)
+    {
+        this.winner = player;
+        this.leaderboardFile = file;
+        saveWinnerToLeaderboard(leaderboardFile);
+        displayLeaderboard();
     }
 
-    public static List<Leaderboard> loadCsv(String filePath) {
-        List<Leaderboard> entries = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] fields = line.split(",");
-                if (fields.length == 6) {
-                    String rank = fields[0].trim();
-                    Mode = Integer.parseInt(fields[1].trim());
-                    String difficulty = fields[2].trim();
-                    String category = fields[3].trim();
-                    int worth = Integer.parseInt(fields[4].trim());
-                    String answer = fields[5].trim();
-                    entry.add(new DareCard(player, , difficulty, category, worth, answer));
-                }
-            }
-        } 
-        catch (IOException e) {
-            System.err.println("Error reading dares CSV file: " + e.getMessage());
+    // Saving the winning player to the leaderboard file
+    private void saveWinnerToLeaderboard(Path leaderboardFile) 
+    {
+        points = winner.getScore();
+        cardQty = winner.getCardQty();
+        createEmptyFile(leaderboardFile, s);
+        try
+        {
+            fc = (FileChannel)Files.newByteChannel
+                (leaderboardFile, CREATE, WRITE);
+
+                String winnerName = winner.getPlayerName();
+                int entryLength = winnerName.length(); 
+                int missingSpaces = (NAME_LENGTH - entryLength);
+                StringBuilder sb = new StringBuilder(name);
+                sb.setLength(NAME_LENGTH);
+                // If the string is longer than NAME_LENGTH, truncate it
+                if (entryLength > NAME_LENGTH) 
+                    sb.setLength(NAME_LENGTH);
+                // If the string is shorter, append the necessary spaces
+                else
+                    sb.append(" ".repeat(missingSpaces));
+                name = sb.toString();
+
+                s = ++rank + delimiter + name + delimiter + points + delimiter +
+                    cardQty + System.getProperty("line.separator");
+                    byte data[] = s.getBytes();
+                    ByteBuffer buffer = ByteBuffer.wrap(data);
+
+                    fc.position(rank * RECSIZE);
+                    fc.write(buffer);
         }
-        return entries;
+        catch (Exception e)
+        {
+            System.out.println("Error message: " + e);
+        }
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public static void createEmptyFile(Path file, String s)
+    {
+        System.out.print("s = " + s);
+        final int NUMRECS = 10; // top 10 players
+        try
+        {
+            OutputStream outputStr =
+                new BufferedOutputStream
+                    (Files.newOutputStream(file, CREATE));
+                BufferedWriter writer =
+                    new BufferedWriter(new OutputStreamWriter(outputStr));
+            for(int count = 0; count < NUMRECS; ++count)
+            {
+                writer.write(s, 0, s.length());
+            }
+            writer.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error message: " + e);
+        }
     }
 
-    public int getTimeLimit() {
-        return timeLimit;
-    }
+    private void displayLeaderboard()
+    {
+        final String EMPTY_ACCT = "000";
+        String[] array = new String[4];
+        StringBuilder records = new StringBuilder(); // Moved here to accumulate all records
 
-    public String getDifficulty() {
-        return difficulty;
-    }
+        try
+        {
+            InputStream iStream = new BufferedInputStream(Files.newInputStream(leaderboardFile));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
+            
+            s = reader.readLine(); // Read the first line
 
-    public String getCategory() {
-        return category;
-    }
+            while (s != null)
+            {
+                array = s.split(delimiter);
+                if (!array[0].equals(EMPTY_ACCT))
+                {
+                    int rank = Integer.parseInt(array[0]);
+                    String playerName = array[1].trim(); // Remove extra spaces
+                    int points = Integer.parseInt(array[2]);
+                    int cardQty = Integer.parseInt(array[3]);
 
-    public int getWorth() {
-        return worth;
-    }
+                    // Append the current player's details to the records StringBuilder
+                    records.append("Pos: ").append(rank)
+                        .append(" | Player: ").append(playerName)
+                        .append(" | Score: ").append(points)
+                        .append(" | Cards: ").append(cardQty)
+                        .append("\n");
+                }
+                s = reader.readLine(); // Read the next line
+            }
 
-    public String getAnswer() {
-        return answer;
-    }
+            reader.close();
 
-    // toString method for display a dare card
-    @Override
-    public String toString() {
-        return String.format(
-            "\nDare: %s\n" +
-            "Time Limit: %d seconds\n" +
-            "Difficulty: %s\n" +
-            "Category: %s\n" +
-            "Worth: %d points\n",
-            dareText, timeLimit, difficulty, category, worth
-        );
+            // Display the accumulated leaderboard records in a JOptionPane
+            JOptionPane.showMessageDialog(null, "Leaderboard:\n" + records.toString(), "Leaderboard", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error displaying leaderboard: " + e.getMessage());
+        }
     }
 }
