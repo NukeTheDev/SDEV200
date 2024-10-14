@@ -21,7 +21,7 @@ public class DareCard {
         this.answer = answer;
     }
 
-    public static List<DareCard> loadCsv(String filePath) {
+    public static List<DareCard> loadCsv(String filePath, Difficulty diff) {
         List<DareCard> dareCards = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -34,7 +34,10 @@ public class DareCard {
                     String category = fields[3].trim();
                     int worth = Integer.parseInt(fields[4].trim());
                     String answer = fields[5].trim();
-                    dareCards.add(new DareCard(dareText, timeLimit, difficulty, category, worth, answer));
+                    
+                    // Check if the difficulty from the CSV matches the passed enum value
+                    if (difficulty.equals(diff.name())) 
+                        dareCards.add(new DareCard(dareText, timeLimit, difficulty, category, worth, answer));
                 }
             }
         } 

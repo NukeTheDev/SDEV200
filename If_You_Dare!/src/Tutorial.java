@@ -1,8 +1,9 @@
 import javax.swing.JOptionPane;
 
-public class Tutorial {
-
-    public static void main(String[] args) {
+public class Tutorial 
+{
+    public void playTutorial(Mode mode)
+    {
         // Define instructions for each game mode
         String[] classicModeInstructions = {
             "Classic Mode:",
@@ -28,14 +29,18 @@ public class Tutorial {
             "4. The player with the most points and dares when the timer runs out wins."
         };
 
-        // Show a beginner tutorial on how to play the game
+        // Show beginning tutorial
         showUserTutorial();
-
+        
         // Show the instructions for each game mode
-        showGameInstructions("Classic Mode", classicModeInstructions);
-        showGameInstructions("Elimination Mode", eliminationModeInstructions);
-        showGameInstructions("Time Attack Mode", timeAttackModeInstructions);
+        switch(mode)
+        {
+            case CLASSIC -> showGameInstructions("Classic Mode", classicModeInstructions);
+            case ELIMINATION -> showGameInstructions("Elimination Mode", eliminationModeInstructions);
+            case TIME_ATTACK -> showGameInstructions("Time Attack Mode", timeAttackModeInstructions);
+        }
     }
+
 
     // Method to show instructions for each game mode
     private static void showGameInstructions(String mode, String[] instructions) {

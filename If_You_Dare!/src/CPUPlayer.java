@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class CPUPlayer extends Player 
 {
-    private static final String[] CPU_NAMES = {"Woody", "Skipper", "Wolf", "Jax", "King", "Sizzle", "Twist", "Violet"};
+    private static final String[] CPU_NAMES = {"Woody (CPU)", "Skipper (CPU)", "Wolf (CPU)", "Jax (CPU)", "King (CPU)", "Sizzle (CPU)", "Twist (CPU)", "Violet (CPU)"};
 
     public CPUPlayer()
     {

@@ -8,9 +8,9 @@ import javax.swing.*;
 
 public class GameSetup extends JFrame 
 {
+    private Mode gameMode;
+    Tutorial tutorialManager = new Tutorial();
     private static final String DAREDECK_PATH = "/workspace/If_You_Dare!/src/dares.csv"; // Path to the CSV file
-    private JFrame prevFrame;
-    private JFrame currentFrame;
     private JFrame mainMenuFrame;
     private JFrame gameModeFrame;
     private JFrame chooseDifficultyFrame;
@@ -46,7 +46,6 @@ public class GameSetup extends JFrame
         mainMenuFrame.pack();
         mainMenuFrame.setLocationRelativeTo(null);
         mainMenuFrame.setVisible(true);
-        prevFrame = mainMenuFrame;
     }
 
     private void showGameModes(String command) 
@@ -97,15 +96,16 @@ public class GameSetup extends JFrame
 
     private void showLeaderboard(Mode gameMode)
     {
+        this.gameMode = gameMode;
         // Check if a leaderBoardFile exists
-        File Leaderboard = new File(".\\" + gameMode + "leaderboards.csv");
+        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
         if (!Leaderboard.exists()) 
         {
             JOptionPane.showMessageDialog(null, "No records found for " + gameMode + "!");
         } 
         else 
         {
-            Path leaderboardFile = Paths.get(".\\" + gameMode + "leaderboards.csv");
+            Path leaderboardFile = Paths.get("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
             Leaderboard leaderBoard = new Leaderboard(leaderboardFile);
         }
     }
@@ -235,10 +235,10 @@ public class GameSetup extends JFrame
 
     private void startGame(Mode gameMode, Difficulty difficulty) 
     {
-        File Leaderboard = new File(".\\" + gameMode + "leaderboards.csv");
+        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
         if (!Leaderboard.exists()) 
         {
-            Tutorial.main(null); // show the tutorials
+            tutorialManager.playTutorial(gameMode);
         }
 
         int localPlayerQty = (int) playerQtyComboBox.getSelectedItem();
@@ -249,7 +249,7 @@ public class GameSetup extends JFrame
 
         List<Player> players = registerPlayers(localPlayerQty, cpuPlayerQty);
 
-        List<DareCard> dareCards = DareCard.loadCsv(DAREDECK_PATH);
+        List<DareCard> dareCards = DareCard.loadCsv(DAREDECK_PATH, difficulty);
  
         GameMode game;
         switch (gameMode) 
@@ -260,14 +260,13 @@ public class GameSetup extends JFrame
             default -> throw new IllegalArgumentException("Unknown game mode: " + gameMode);
         }
 
-        while (!game.isGameOver()) 
+        while (!game.isGameOver())
         {
             game.playRound();
         }
         System.out.println("Went here");
-        Path leaderboardFile = Paths.get(".\\" + gameMode + "leaderboards.csv");
         Player winner = game.getWinner();
-        Leaderboard leaderBoard = new Leaderboard(winner, leaderboardFile);
+        Leaderboard leaderBoard = new Leaderboard(winner, gameMode);
     }
 
     private List<Player> registerPlayers(int playerCount, int cpuCount) {

@@ -1,12 +1,12 @@
 package ChapterEleven.Tutorial11;
 
-import java.nio.file.*;
 import java.io.*;
-import java.nio.channels.FileChannel;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.*;
 import static java.nio.file.StandardOpenOption.*;
-import java.util.Scanner;
 import java.text.*;
+import java.util.Scanner;
 
 public class CreateFilesBasedOnState
 {
@@ -15,9 +15,9 @@ public class CreateFilesBasedOnState
         Scanner input = new Scanner(System.in);
 
         Path inStateFile = 
-            Paths.get("/workspace/ChapterEleven/Tutorial11/inStateCusts.txt");
+            Paths.get(".\\inStateCusts.txt");
             Path outOfStateFile = 
-            Paths.get("/workspace/ChapterEleven/Tutorial11/outOfStateCusts.txt");
+            Paths.get(".\\outOfStateCusts.txt");
         final String ID_FORMAT = "000";
         final String NAME_FORMAT = "          ";
         final int NAME_LENGTH = NAME_FORMAT.length();
@@ -67,8 +67,15 @@ public class CreateFilesBasedOnState
 
                 System.out.print("Enter name for customer >> ");
                 name = input.nextLine();
+                int entryLength = name.length(); 
+                int missingSpaces = (NAME_LENGTH - entryLength);
                 StringBuilder sb = new StringBuilder(name);
-                sb.setLength(NAME_LENGTH);
+                // If the string is longer than NAME_LENGTH, truncate it
+                if (entryLength > NAME_LENGTH) 
+                    sb.setLength(NAME_LENGTH);
+                // If the string is shorter, append the necessary spaces
+                else
+                    sb.append(" ".repeat(missingSpaces));
                 name = sb.toString();
 
                 System.out.println("Enter state >> ");
@@ -120,7 +127,8 @@ public class CreateFilesBasedOnState
 
     public static void createEmptyFile(Path file, String s)
     {
-        final int NUMRECS = 1000;
+        System.out.print("s = " + s);
+        final int NUMRECS = 100;
         try
         {
             OutputStream outputStr =
