@@ -23,7 +23,6 @@ import javax.swing.*;
 
 public class GameSetup extends JFrame
 {
-    Tutorial tutorialManager = new Tutorial();
     private static final String DAREDECK_PATH = ".\\dares.csv"; // Path to the CSV file
     private JFrame mainMenuFrame;
     private JFrame gameModeFrame;
@@ -35,6 +34,9 @@ public class GameSetup extends JFrame
     private int chosenTimeLimit;
     private Integer[] cpuOptions = {0, 1, 2, 3, 4};
     private Integer[] playerOptions = {2, 3, 4, 5, 6};
+
+    // Handler for displaying tutorials
+    Tutorial tutorialManager = new Tutorial();
 
     public GameSetup()
     {
@@ -57,10 +59,23 @@ public class GameSetup extends JFrame
         mainMenuFrame.add(mainMenuLabel);
         mainMenuFrame.add(newGameButton);
         mainMenuFrame.add(showLeaderboardsBtn);
+        showLeaderboardsBtn.setVisible(!noLeaderboardExists());
 
         mainMenuFrame.pack();
         mainMenuFrame.setLocationRelativeTo(null);
         mainMenuFrame.setVisible(true);
+    }
+
+    private boolean noLeaderboardExists() {
+        for (Mode gameMode : Mode.values()) {
+            File leaderboard = new File(".\\" + gameMode + "_leaderboard.csv");
+            if (leaderboard.exists()) {
+                // If at least one leaderboard file exists, return false
+                return false;
+            }
+        }
+        // If no leaderboard file exists for any game mode, return true
+        return true;
     }
 
     private void showGameModes(String command) 
@@ -94,14 +109,11 @@ public class GameSetup extends JFrame
             timeAttackBtn.addActionListener(e -> chooseTimeLimit());
             backBtn.addActionListener(e -> showMainMenu());
         }
-
-
         gameModeFrame.add(gameModeLabel);
         gameModeFrame.add(classicBtn);
         gameModeFrame.add(eliminationBtn);
         gameModeFrame.add(timeAttackBtn);
         gameModeFrame.add(backBtn);
-
 
         // Initialize frame
         gameModeFrame.pack();
@@ -116,7 +128,7 @@ public class GameSetup extends JFrame
         if (!Leaderboard.exists()) 
         {
             JOptionPane.showMessageDialog(null, "No records found for " + gameMode + "!");
-        } 
+        }
         else 
         {
             // Display leaderboard for the selected game mode
@@ -254,6 +266,10 @@ public class GameSetup extends JFrame
         {
             tutorialManager.playTutorial(gameMode);
         }
+        else if (noLeaderboardExists())
+        {
+            tutorialManager.showBeginnerTutorial();
+        }
 
         int localPlayerQty = (int) playerQtyComboBox.getSelectedItem();
         int cpuPlayerQty = (int) cpuQtyComboBox.getSelectedItem();
@@ -278,9 +294,8 @@ public class GameSetup extends JFrame
         {
             game.playRound();
         }
-        System.out.println("Went here");
-        Player winner = game.getWinner();
-        Leaderboard leaderBoard = new Leaderboard(winner, gameMode);
+        // Pass each player in to determine wheter or not they made it on the top 100 leaderboard
+        Leaderboard leaderBoard = new Leaderboard(players, gameMode);
     }
 
     private List<Player> registerPlayers(int playerCount, int cpuCount) {

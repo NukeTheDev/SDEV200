@@ -28,9 +28,6 @@ public class Tutorial
             "3. Refusing or failing a dare subtracts points from your score.",
             "4. The player with the most points and dares when the timer runs out wins."
         };
-
-        // Show beginning tutorial
-        showUserTutorial();
         
         // Show the instructions for each game mode
         switch(mode)
@@ -52,7 +49,7 @@ public class Tutorial
     }
 
     // Method to show a beginner tutorial
-    private static void showUserTutorial() {
+    public void showBeginnerTutorial() {
         // Split the tutorial into multiple JOptionPane boxes with 4-5 lines each for readability
         String[] tutorial1 = {
             "Welcome to If You Dare!",
