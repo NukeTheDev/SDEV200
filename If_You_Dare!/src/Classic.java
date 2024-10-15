@@ -14,9 +14,9 @@ public class Classic extends GameMode
     {
         switch(difficulty) 
         {
-            case EASY -> pointThreshold = 100;
-            case MEDIUM -> pointThreshold = 150;
-            case HARD -> pointThreshold = 200;
+            case EASY -> pointThreshold = 50;
+            case MEDIUM -> pointThreshold = 100;
+            case HARD -> pointThreshold = 150;
         }
     }
 

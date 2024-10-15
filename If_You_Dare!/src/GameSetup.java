@@ -1,14 +1,11 @@
 import java.awt.*;
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class GameSetup extends JFrame 
+public class GameSetup extends JFrame
 {
-    private Mode gameMode;
     Tutorial tutorialManager = new Tutorial();
     private static final String DAREDECK_PATH = "/workspace/If_You_Dare!/src/dares.csv"; // Path to the CSV file
     private JFrame mainMenuFrame;
@@ -19,6 +16,7 @@ public class GameSetup extends JFrame
     private JComboBox<Integer> playerQtyComboBox;
     private JComboBox<Integer> cpuQtyComboBox;
     private int chosenTimeLimit;
+    private Integer[] cpuOptions = {0, 1, 2, 3, 4};
     private Integer[] playerOptions = {2, 3, 4, 5, 6};
 
     public GameSetup()
@@ -96,17 +94,16 @@ public class GameSetup extends JFrame
 
     private void showLeaderboard(Mode gameMode)
     {
-        this.gameMode = gameMode;
         // Check if a leaderBoardFile exists
-        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
+        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
         if (!Leaderboard.exists()) 
         {
             JOptionPane.showMessageDialog(null, "No records found for " + gameMode + "!");
         } 
         else 
         {
-            Path leaderboardFile = Paths.get("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
-            Leaderboard leaderBoard = new Leaderboard(leaderboardFile);
+            // Display leaderboard for the selected game mode
+            Leaderboard leaderBoard = new Leaderboard(gameMode);
         }
     }
 
@@ -206,7 +203,7 @@ public class GameSetup extends JFrame
         playerSetupFrame.add(new JLabel("How many local players?"));
         playerSetupFrame.add(playerQtyComboBox);
 
-        cpuQtyComboBox = new JComboBox<>(new Integer[0]);
+        cpuQtyComboBox = new JComboBox<>(cpuOptions);
         playerSetupFrame.add(new JLabel("How many CPUs?"));
         playerSetupFrame.add(cpuQtyComboBox);
         playerQtyComboBox.addActionListener(e -> updateCPUOptions());
@@ -235,7 +232,7 @@ public class GameSetup extends JFrame
 
     private void startGame(Mode gameMode, Difficulty difficulty) 
     {
-        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
+        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
         if (!Leaderboard.exists()) 
         {
             tutorialManager.playTutorial(gameMode);

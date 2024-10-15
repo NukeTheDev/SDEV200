@@ -16,7 +16,7 @@ public abstract class GameMode {
         this.dareCards = dareCards;
     }
 
-    protected boolean isGameOver() 
+    protected boolean isGameOver()
     {
         return !gameActive;
     }
@@ -39,6 +39,10 @@ public abstract class GameMode {
     public void playTurn(Player currentPlayer) 
     {
         if (!currentPlayer.isActive()) return; // Skip if player is inactive
+
+        // Check if the game is still active before proceeding
+        if (isGameOver()) return;
+
         // Display a message for the current player including CPU player's
         String message = currentPlayer.getPlayerName() + "'s turn";
         JOptionPane.showMessageDialog(null, message, "Player Prompt", JOptionPane.INFORMATION_MESSAGE);
@@ -56,10 +60,10 @@ public abstract class GameMode {
             cpuTurn(player, dareCard);
         } else {
             int response = JOptionPane.showConfirmDialog(
-                        null,
-                        player.getPlayerName() + ", your dare is: " + dareCard.toString() + "\nDo you accept the dare?",
-                        "Dare Challenge",
-                        JOptionPane.YES_NO_OPTION);
+                null,
+                player.getPlayerName() + ", your dare is: " + dareCard.toString() + "\nDo you accept the dare?",
+                "Dare Challenge",
+                JOptionPane.YES_NO_OPTION);
 
                 if (response == JOptionPane.YES_OPTION) 
                 {
@@ -87,20 +91,20 @@ public abstract class GameMode {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // Restore interrupted status
         }
-    
+        // Stores the current CPU's player name as a String
+        String cpuPlayerName = cpuPlayer.getPlayerName();
         // Decision-making logic:
         double randomDecision = Math.random();
     
         // 10% chance to forfeit the game
         if (randomDecision < 0.1) {
-            System.out.println(cpuPlayer.getPlayerName() + " (CPU) has chosen to forfeit the game.");
+            System.out.println(cpuPlayerName + " has chosen to forfeit the game.");
             forfeit(cpuPlayer);
-            return;
         }
     
         // 70% chance to accept the dare, 20% chance to refuse
         if (randomDecision < 0.8) {
-            System.out.println(cpuPlayer.getPlayerName() + " (CPU) has accepted the dare!");
+            System.out.println(cpuPlayerName + " has accepted the dare!");
     
             // Simulate the CPU trying to complete the dare
             long simulatedTimeTaken = (long) (Math.random() * (dareCard.getTimeLimit() + 1)); // Random time between 0 and time limit
@@ -108,16 +112,16 @@ public abstract class GameMode {
             // Simulate whether CPU completes the dare successfully or not (let's assume 80% success rate)
             if (Math.random() < 0.8) {
                 // CPU successfully completes the dare
-                System.out.println(cpuPlayer.getPlayerName() + " (CPU) successfully completed the dare!");
+                System.out.println(cpuPlayerName + " successfully completed the dare!");
                 handleDareCompletion(cpuPlayer, dareCard, simulatedTimeTaken);
             } else {
                 // CPU fails the dare
-                System.out.println(cpuPlayer.getPlayerName() + " (CPU) failed the dare.");
+                System.out.println(cpuPlayerName + " failed the dare.");
                 handleDareException(cpuPlayer, dareCard, "failed");
             }
         } else {
             // CPU refuses the dare
-            System.out.println(cpuPlayer.getPlayerName() + " (CPU) has refused the dare.");
+            System.out.println(cpuPlayerName + " has refused the dare.");
             handleDareException(cpuPlayer, dareCard, "refused");
         }
     }
@@ -126,10 +130,7 @@ public abstract class GameMode {
     private void executeDareChallenge(Player player, DareCard dareCard, long startTime) {
         int timeLimit = dareCard.getTimeLimit();
     
-        // Create a JOptionPane and dialog for input (for human players)
-        JOptionPane optionPane = new JOptionPane(dareCard.getdareText(), JOptionPane.QUESTION_MESSAGE);
-        JDialog dialog = optionPane.createDialog(player.getPlayerName() + "'s Dare");
-    
+        // Create a timer for the countdown
         Timer countdownTimer = new Timer(1000, new ActionListener() {
             private int timeLeft = timeLimit;
     
@@ -138,32 +139,37 @@ public abstract class GameMode {
                 timeLeft--;
                 if (timeLeft <= 0) {
                     ((Timer) e.getSource()).stop();
-                    dialog.dispose(); // Close the dialog when time's up
                     JOptionPane.showMessageDialog(null, "Time's up! " + player.getPlayerName() + " has failed the dare!" +
                             "\nNew score: " + player.getScore());
+                    
+                    // Simulate an incorrect answer
                     handleDareException(player, dareCard, "failed");
+                    // Close the input dialog if time is up
+                    ((Timer) e.getSource()).stop(); // Ensure timer stops
                 }
             }
         });
         countdownTimer.start();
     
-        // Show the dialog
-        dialog.setVisible(true);
+        // Show the input dialog for the player's answer
+        String answer = JOptionPane.showInputDialog(null, 
+            player.getPlayerName() + ", your dare is: " + dareCard.getdareText() +
+            "\nYou have " + timeLimit + " seconds. Please enter your answer:", 
+            "Dare Challenge", JOptionPane.QUESTION_MESSAGE);
     
         // Stop the timer if dialog is closed or input is received
         countdownTimer.stop();
-    
-        // Get the answer from the input dialog after the dialog is closed
-        String answer = (String) optionPane.getInputValue();
-    
-        // If dialog closed without input, answer will be null
-        if (answer != null && !answer.trim().isEmpty() && dareCard.isCorrect(answer)) {
+
+        // Check the answer
+        if (answer == null || answer.trim().isEmpty() || answer.equals("failure")) {
+            handleDareException(player, dareCard, "failed");
+        } else if (dareCard.isCorrect(answer)) {
             long timeTaken = (System.currentTimeMillis() - startTime) / 1000; // Time in seconds
             handleDareCompletion(player, dareCard, timeTaken);
         } else {
             handleDareException(player, dareCard, "failed");
         }
-    }
+    }    
     
 
     // Handle dare completion with time tracking
@@ -213,12 +219,9 @@ public abstract class GameMode {
     private void forfeit(Player player) {
         JOptionPane.showMessageDialog(null, player.getPlayerName() + " has forfeited the game!");
         players.remove(player);
-        if (players.size() == 1) {
-            JOptionPane.showMessageDialog(null, players.get(0).getPlayerName() + " wins the game!");
-            System.exit(0);
-        }
-        else 
-            playRound();
+
+        // Continue the game with the remaining players
+        playRound();
     }
 
     protected abstract void checkGameState();
