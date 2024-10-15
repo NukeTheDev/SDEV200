@@ -1,3 +1,7 @@
+// Brief explanation of game mode objective
+// Elimination: Players are eliminated if they fail dares or lose all their points. 
+// The last player standing wins the game.
+
 import java.util.List;
 import javax.swing.JOptionPane;
 
