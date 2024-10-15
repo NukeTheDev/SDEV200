@@ -1,3 +1,20 @@
+// Charles "Nuke" Phillips
+// SDEV 200 Final Project
+
+/* App description:
+ *
+ * If You Dare is a turn-based computer game where players must complete challenges
+ * based on difficulty levels: EASY, MEDIUM, or HARD. Each dare has a time limit,
+ * category, and point value. Depending on the difficulty chosen, dare crds are drawn
+ * and shown to the hotseat player. 
+ * 
+ * The goal of the game depends on the selected mode.
+ *
+ * Players accumulate points by completing dares, and 
+ * the game tracks progress until a winner is determined. The game also includes 
+ * a leaderboard that stores and displays top players' scores.
+ */
+
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +24,7 @@ import javax.swing.*;
 public class GameSetup extends JFrame
 {
     Tutorial tutorialManager = new Tutorial();
-    private static final String DAREDECK_PATH = "/workspace/If_You_Dare!/src/dares.csv"; // Path to the CSV file
+    private static final String DAREDECK_PATH = ".\\dares.csv"; // Path to the CSV file
     private JFrame mainMenuFrame;
     private JFrame gameModeFrame;
     private JFrame chooseDifficultyFrame;
@@ -95,7 +112,7 @@ public class GameSetup extends JFrame
     private void showLeaderboard(Mode gameMode)
     {
         // Check if a leaderBoardFile exists
-        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
+        File Leaderboard = new File(".\\" + gameMode + "_leaderboard.csv");
         if (!Leaderboard.exists()) 
         {
             JOptionPane.showMessageDialog(null, "No records found for " + gameMode + "!");
@@ -232,7 +249,7 @@ public class GameSetup extends JFrame
 
     private void startGame(Mode gameMode, Difficulty difficulty) 
     {
-        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
+        File Leaderboard = new File(".\\" + gameMode + "_leaderboard.csv");
         if (!Leaderboard.exists()) 
         {
             tutorialManager.playTutorial(gameMode);

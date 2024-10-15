@@ -1,3 +1,14 @@
+// Charles "Nuke" Phillips
+
+/* Program description:
+ *
+ * The Leaderboard class manages the tracking and display of player rankings
+ * based on their scores and number of cards. It can update the leaderboard with
+ * new winners, save player data to a CSV file, and display the leaderboard in a
+ * formatted view using a graphical message box. It ensures rank calculation is
+ * dynamic and maintains top player records.
+ */
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -44,7 +55,7 @@ public class Leaderboard {
     }
 
     private Path getLeaderboardFile(Mode mode) {
-        Path leaderboardFile = Paths.get("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
+        Path leaderboardFile = Paths.get(".\\" + mode + "_leaderboard.csv");
         return leaderboardFile;
     }
 
@@ -55,7 +66,7 @@ public class Leaderboard {
     // Method to update the rank and save the player info
     private void updateRankAndSave(Player player) {
         // Ensures the leaderboard always exists
-        File leaderboardFileObj = new File("/workspace/If_You_Dare!/src/" + gameMode + "leaderboard.csv");
+        File leaderboardFileObj = new File(".\\" + gameMode + "_leaderboard.csv");
         if (!leaderboardFileObj.exists())
             createEmptyFile(leaderboardFile, s);
         int points = player.getScore();

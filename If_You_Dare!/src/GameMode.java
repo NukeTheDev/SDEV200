@@ -1,3 +1,5 @@
+// Brief explanation of game mode objective
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;

@@ -1,3 +1,7 @@
+// Brief explanation of game mode objective
+// Classic: Players take turns completing dares to accumulate points. The player 
+// with the most points at the end of the game wins.
+
 import java.util.List;
 import javax.swing.JOptionPane;
 

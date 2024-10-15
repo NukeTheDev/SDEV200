@@ -1,3 +1,7 @@
+// Brief explanation of game mode objective
+// TimeAttack: Players race against a set time limit to complete as many dares as 
+// possible. The player with the most points when time runs out wins.
+
 import java.util.List;
 import javax.swing.JOptionPane;
 
