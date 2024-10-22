@@ -43,10 +43,10 @@ This guide provides step-by-step instructions on how to set up and run the *If Y
 
     -   Click **Yes** to reopen the project inside the devcontainer environment.
 2.  **Running the Game**
-    -   In the **File Explorer pane** (located on the far left in VS Code), find and click on GameSetup.java to open the file.
+    -   In the **File Explorer pane** (located on the far left in VS Code), click on the folder If_You_Dare, click on the subfolder src, then click on GameSetup.java to open the program.
     -   At the top right corner of the VS Code window, you will see a play button that looks like \|\>.
     -   Click the play button to run the app.
-    -   **Voila!** The *If You Dare* game should now launch.
+    -   The *If You Dare* game should now launch.
 
 **Troubleshooting:**
 
