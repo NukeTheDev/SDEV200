@@ -28,6 +28,7 @@ public class CreateFilesBasedOnState
             delimiter + HOME_STATE + delimiter + BALANCE_FORMAT +
             System.getProperty("line.separator");
         final int RECSIZE = s.length();
+
         FileChannel fcIn = null;
         FileChannel fcOut = null;
         String idString;
