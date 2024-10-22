@@ -14,7 +14,7 @@ This guide provides step-by-step instructions on how to set up and run the *If Y
 
 1.  **Download the Game Files**
     -   First, click the green code button at the top right of your screen.
-    -   Then, download the SDEV200-dev.zip file from GitHub.
+    -   Then, download the SDEV200-main.zip file from GitHub.
     -   **See figure 1.**
 
         ![Figure 1](media/929bf2db23f25266a29934ca3e34d2bf.png)
@@ -23,7 +23,7 @@ This guide provides step-by-step instructions on how to set up and run the *If Y
 2.  **Open the Game Folder in VS Code**
     -   Open **Visual Studio Code (VS Code)**.
     -   Click on **File** \> **Open Folder**.
-    -   Navigate to and select the C:\\Users\\Documents\\SDEV200-dev folder. **Do not open any subfolders within SDEV200-dev**. *Note:* It critical to select the SDEV200-dev folder because it contains the essential. “.devcontainer” folder.
+    -   Navigate to and select the C:\\Users\\Documents\\SDEV200-main folder. **Do not open any subfolders within SDEV200-main**. *Note:* It critical to select the SDEV200-main folder because it contains the essential. “.devcontainer” folder.
 
 **Important Files:**
 
@@ -35,7 +35,7 @@ This guide provides step-by-step instructions on how to set up and run the *If Y
 **Running the App in VS Code:**
 
 1.  **Dev Container Setup**  
-    After opening the SDEV200-dev folder, VS Code will detect the devcontainer configuration.
+    After opening the SDEV200-main folder, VS Code will detect the devcontainer configuration.
     -   You will see a popup message saying something like: **"Dev container configuration found! Would you like to reopen in devcontainer?"**
     -   **See figure 2.**
 
@@ -50,7 +50,7 @@ This guide provides step-by-step instructions on how to set up and run the *If Y
 
 **Troubleshooting:**
 
--   If you encounter any issues running Docker or opening the folder in VS Code, ensure that Docker is running correctly and that the correct folder (SDEV200) is selected in VS Code.
+-   If you encounter any issues running Docker or opening the folder in VS Code, ensure that Docker is running correctly and that the correct folder (SDEV200-main) is selected in VS Code.
 -   If prompted to install any extensions or dependencies in VS Code, follow the prompts to complete the setup.
 
 Enjoy playing *If You Dare*!
