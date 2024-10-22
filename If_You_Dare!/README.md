@@ -3,7 +3,7 @@ This guide provides step-by-step instructions on how to set up and run the If Yo
 ________________________________________
 Requirements:
 1.	Install Docker
-o	Visit the Docker website to download Docker Desktop: Docker Installation Guide.
+o	Visit the Docker website to download Docker Desktop: [Docker Installation Guide.](https://docs.docker.com/desktop/install/windows-install/)
 o	Install Docker Desktop and sign up with your email.
 o	Verify your account by confirming the code sent to your email if needed.
 o	After installation, open Docker by clicking the shortcut created on your desktop (if selected during installation).
