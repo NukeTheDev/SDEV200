@@ -50,8 +50,8 @@ Who painted "The Starry Night"?,40,MEDIUM,Art,20,Vincent van Gogh
 What is the capital of Spain?,30,MEDIUM,Geography,15,Madrid
 What is the smallest prime number?,30,MEDIUM,Math,15,2
 
-What year did the Titanic sink?,30,HARD,History,30,1912
-What is the speed of light in meters per second?,60,HARD,Science,40,299792458
+What year did the Titanic sink?,30,HARD,History,25,1912
+What is the speed of light in meters per second?,60,HARD,Science,30,299792458
 Name three elements in the periodic table that are gases.,60,HARD,Science,40,Helium,Oxygen,Nitrogen
 Who was the 16th president of the United States?,45,HARD,History,35,Abraham Lincoln
 What is the capital of Iceland?,45,HARD,Geography,35,Reykjavik

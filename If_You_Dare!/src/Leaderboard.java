@@ -31,9 +31,9 @@
                 System.getProperty("line.separator");
      final int RECSIZE = s.length();
      FileChannel fc = null;
-     int rank = 000;
+     int rank;
      String name;
-     int points;
+     int score;
      double cardQty;
  
      // Constructor for displaying leaderboard
@@ -61,11 +61,12 @@
      }
  
      private Path getLeaderboardFile(Mode mode) {
-         return Paths.get(".\\" + gameMode + "_leaderboard.csv");
+         return Paths.get("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
      }
  
-     private void setLeaderboardFilePath(Path path) {
-         this.leaderboardFile = path;
+     private void setLeaderboardFilePath(Path path) 
+     {
+        this.leaderboardFile = path;
      }
  
      // Method to update the rank and save the player info based on the command
@@ -73,55 +74,72 @@
      {
          if (player != null) 
          {
-             int points = player.getScore();
+             int score = player.getScore();
              int cardQty = player.getCardQty();
              String playerName = player.getPlayerName();
-             int rank = getLeaderboard("determine rank", points, cardQty);
+             int rank = (getLeaderboard("determine rank", score, cardQty));
  
              // Ensure the leaderboard file exists
-             File leaderboardFileObj = new File(".\\" + gameMode + "_leaderboard.csv");
+             File leaderboardFileObj = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
              if (!leaderboardFileObj.exists())
                  createEmptyFile(leaderboardFile, s);
  
              // Save the player's record
              if (rank <= 100)  // Ensure only the top 100 players are saved
-                 saveRecord(playerName, points, cardQty, rank); 
+                 saveRecord(rank, playerName, score, cardQty); 
         }
     }
  
-     // Method to save a player's details in the leaderboard
-     private void saveRecord(String playerName, int points, int cardQty, int rank) {
-         try {
-             fc = (FileChannel) Files.newByteChannel(leaderboardFile, CREATE, WRITE);
-             name = playerName;
-             int entryLength = playerName.length();
-             int missingSpaces = (NAME_LENGTH - entryLength);
-             StringBuilder sb = new StringBuilder(name);
- 
-             // Truncate or pad the name to match the format
-             if (entryLength > NAME_LENGTH) 
-                 sb.setLength(NAME_LENGTH);
-             else
-                 sb.append(" ".repeat(missingSpaces));
-             name = sb.toString();
- 
-             s = String.format("%03d", rank) + delimiter + name + delimiter + 
-                 points + delimiter + cardQty + System.getProperty("line.separator");
-             byte data[] = s.getBytes();
-             ByteBuffer buffer = ByteBuffer.wrap(data);
- 
-             // Save at the correct position based on rank
-             fc.position((rank - 1) * RECSIZE);
-             fc.write(buffer);
- 
-             fc.close();
-         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error saving record to leaderboard: " + e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
-         }
-     }
- 
+    // Method to save a player's details in the leaderboard
+    private void saveRecord(int rank, String playerName, int score, int cardQty) {
+        try {
+            // Open the file channel for both reading and writing
+            fc = (FileChannel)Files.newByteChannel(leaderboardFile, CREATE, WRITE, READ);
+            
+            // Prepare the player's name to ensure it fits within the fixed length
+            name = playerName;
+            int entryLength = playerName.length();
+            int missingSpaces = NAME_LENGTH - entryLength;
+            StringBuilder sb = new StringBuilder(name);
+    
+            // Truncate or pad the name to match the format
+            if (entryLength > NAME_LENGTH) {
+                sb.setLength(NAME_LENGTH);
+            } else {
+                sb.append(" ".repeat(missingSpaces));
+            }
+            name = sb.toString();
+    
+            // Format the player's data into the CSV format
+            s = String.format("%03d", rank) + delimiter + name + delimiter +
+                String.format("%03d", score) + delimiter + 
+                String.format("%02d", cardQty) + System.getProperty("line.separator");
+            
+            byte[] data = s.getBytes();
+            ByteBuffer buffer = ByteBuffer.wrap(data);
+    
+            // Position the file channel to the correct rank and truncate at that point
+            long writePosition = (rank - 1) * RECSIZE;
+            fc.position(writePosition);
+    
+            // Write the buffer data
+            fc.write(buffer);
+    
+            // Ensure truncation to avoid leftover bytes (e.g., from previous records)
+            long newFileSize = writePosition + data.length;
+            fc.truncate(newFileSize);
+    
+            // Clear the buffer and close the channel
+            buffer.clear();
+            fc.close();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error message: " + e + " Error saving record to leaderboard!" + JOptionPane.WARNING_MESSAGE);
+        }
+    }    
+    
      // Method to determine rank or display the leaderboard
-     private int getLeaderboard(String command, int points, int cardQty) {
+     private int getLeaderboard(String command, int score, int cardQty) {
          final String EMPTY_RECORD = "000";
          String[] array = new String[4];
          StringBuilder records = new StringBuilder();
@@ -143,8 +161,8 @@
                      int recordPoints = Integer.parseInt(array[2].trim());
                      int recordCardQty = Integer.parseInt(array[3].trim());
  
-                     // Rank players based on points and cards
-                     if ("determine rank".equals(command) && (points > recordPoints || (points == recordPoints && cardQty >= recordCardQty)))
+                     // Rank players based on score and cards
+                     if ("determine rank".equals(command) && (score > recordPoints || (score == recordPoints && cardQty >= recordCardQty)))
                          determinedRank = rankCounter;
  
                      records.append("Pos: ").append(rankCounter)

@@ -1,6 +1,6 @@
-// Brief explanation of game mode objective
-// Classic: Players take turns completing dares to accumulate points. The player 
-// with the most points at the end of the game wins.
+/* Classic: Players take turns completing dares to accumulate points. 
+ * The player that reaches the points threshold for that difficulty first, wins.
+ */
 
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -31,9 +31,7 @@ public class Classic extends GameMode
         {
             playTurn(player);
             if (!gameActive) 
-            {
                 break;
-            }
         }
     }
     
@@ -48,11 +46,15 @@ public class Classic extends GameMode
                 setWinner(player); // set the winner
             }
         }
+        // See if there is only one player left in the game.
+        // If there is, set them as the winner
+        checkForLastPlayer();
     }
 
     @Override
     protected void announceWinner()
     {
-        JOptionPane.showMessageDialog(null, winner.getPlayerName() + "Has reached" + pointThreshold + "points!");
+        JOptionPane.showMessageDialog(null, "Congratulations! " + winner.getPlayerName() + 
+        "\n You win!");
     }
 }

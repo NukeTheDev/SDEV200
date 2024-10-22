@@ -2,17 +2,12 @@
 // SDEV 200 Final Project
 
 /* App description:
- *
  * If You Dare is a turn-based computer game where players must complete challenges
  * based on difficulty levels: EASY, MEDIUM, or HARD. Each dare has a time limit,
  * category, and point value. Depending on the difficulty chosen, dare crds are drawn
- * and shown to the hotseat player. 
- * 
- * The goal of the game depends on the selected mode.
- *
- * Players accumulate points by completing dares, and 
- * the game tracks progress until a winner is determined. The game also includes 
- * a leaderboard that stores and displays top players' scores.
+ * and shown to the hotseat player. The goal of the game depends on the selected mode.
+ * Players accumulate points by completing dares, and the game tracks progress until a winner is determined. 
+ * The game also includes a leaderboard that stores and displays the top 100 scores.
  */
 
 import java.awt.*;
@@ -23,7 +18,9 @@ import javax.swing.*;
 
 public class GameSetup extends JFrame
 {
-    private static final String DAREDECK_PATH = ".\\dares.csv"; // Path to the CSV file
+    private static final String DAREDECK_PATH = "/workspace/If_You_Dare!/src/dares.csv"; // Path to the CSV file
+    private JFrame currentFrame;
+    private JFrame prevFrame;
     private JFrame mainMenuFrame;
     private JFrame gameModeFrame;
     private JFrame chooseDifficultyFrame;
@@ -42,16 +39,29 @@ public class GameSetup extends JFrame
     {
         showMainMenu();
     }
+    // Utility function used to manage frames
+    public void updateFrame(JFrame newFrame)
+    {
+        if(currentFrame != null)
+        {
+            currentFrame.setVisible(false);
+            prevFrame = currentFrame;
+        }
+        newFrame.setVisible(true);
+    }
 
     public void showMainMenu()
     {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame = new JFrame("Main Menu");
         mainMenuFrame.setLayout(new GridLayout(3, 1));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel mainMenuLabel = new JLabel("Select Game Mode: ");
         JButton newGameButton = new JButton("New Game");
-        JButton showLeaderboardsBtn = new JButton("Show Leaderboards");
+        JButton showLeaderboardsBtn = new JButton("Top 100");
+
+        // If zero leaderboards exist, hide the show leaderboards button
+        showLeaderboardsBtn.setVisible(!noLeaderboardExists());
 
         newGameButton.addActionListener(e -> showGameModes("default"));
         showLeaderboardsBtn.addActionListener(e -> showGameModes("showLeaderboards"));
@@ -59,16 +69,17 @@ public class GameSetup extends JFrame
         mainMenuFrame.add(mainMenuLabel);
         mainMenuFrame.add(newGameButton);
         mainMenuFrame.add(showLeaderboardsBtn);
-        showLeaderboardsBtn.setVisible(!noLeaderboardExists());
 
         mainMenuFrame.pack();
         mainMenuFrame.setLocationRelativeTo(null);
-        mainMenuFrame.setVisible(true);
+        
+        currentFrame = mainMenuFrame; // Initialize the frame to main menu
+        updateFrame(mainMenuFrame);  // Update frame
     }
 
     private boolean noLeaderboardExists() {
         for (Mode gameMode : Mode.values()) {
-            File leaderboard = new File(".\\" + gameMode + "_leaderboard.csv");
+            File leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
             if (leaderboard.exists()) {
                 // If at least one leaderboard file exists, return false
                 return false;
@@ -80,13 +91,9 @@ public class GameSetup extends JFrame
 
     private void showGameModes(String command) 
     {
-        if(gameModeFrame != null)
-        {
-            gameModeFrame.setVisible(false);
-        }
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameModeFrame = new JFrame("Game Setup");
         gameModeFrame.setLayout(new GridLayout(5, 1));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel gameModeLabel = new JLabel("Select Game Mode: ");
         JButton classicBtn = new JButton("Classic");
@@ -104,6 +111,11 @@ public class GameSetup extends JFrame
         }
         else
         {
+            // If a player is brand new player, 
+            //show the beginner tutorial 
+            if (noLeaderboardExists())
+                tutorialManager.showBeginnerTutorial();
+
             classicBtn.addActionListener(e -> showDifficultySelection(Mode.CLASSIC));
             eliminationBtn.addActionListener(e -> showDifficultySelection(Mode.ELIMINATION));
             timeAttackBtn.addActionListener(e -> chooseTimeLimit());
@@ -118,33 +130,26 @@ public class GameSetup extends JFrame
         // Initialize frame
         gameModeFrame.pack();
         gameModeFrame.setLocationRelativeTo(mainMenuFrame);
-        gameModeFrame.setVisible(true);
+        updateFrame(gameModeFrame);  // Update frame;
     }
 
     private void showLeaderboard(Mode gameMode)
     {
         // Check if a leaderBoardFile exists
-        File Leaderboard = new File(".\\" + gameMode + "_leaderboard.csv");
+        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
         if (!Leaderboard.exists()) 
-        {
             JOptionPane.showMessageDialog(null, "No records found for " + gameMode + "!");
-        }
-        else 
+        else
         {
-            // Display leaderboard for the selected game mode
             Leaderboard leaderBoard = new Leaderboard(gameMode);
         }
     }
 
     private void showDifficultySelection(Mode gameMode) 
     {
-        if(chooseDifficultyFrame != null)
-        {
-            chooseDifficultyFrame.setVisible(false);
-        }
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         chooseDifficultyFrame = new JFrame("Choose Difficulty");
         chooseDifficultyFrame.setLayout(new GridLayout(5, 1));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         gameModeFrame.dispose();  // Close the previous frame
         gameModeFrame.setVisible(false);
@@ -169,18 +174,14 @@ public class GameSetup extends JFrame
         
         chooseDifficultyFrame.pack();
         chooseDifficultyFrame.setLocationRelativeTo(mainMenuFrame);
-        chooseDifficultyFrame.setVisible(true);
+        updateFrame(chooseDifficultyFrame);  // Update frame;
     }
 
     private void chooseTimeLimit()
     {
-        if(chooseTimeLimitFrame != null)
-        {
-            chooseTimeLimitFrame.setVisible(false);
-        }
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         chooseTimeLimitFrame = new JFrame("Time Limit Setup");
         chooseTimeLimitFrame.setLayout(new GridLayout(5, 1));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         chooseTimeLimitFrame.dispose();  // Close the previous frame
         chooseTimeLimitFrame.setVisible(false);
@@ -189,19 +190,22 @@ public class GameSetup extends JFrame
         JButton twoMinsBtn = new JButton("2 Minutes");
         JButton fiveMinsBtn = new JButton("5 Minutes");
         JButton tenMinsBtn = new JButton("10 Minutes");
+        JButton backBtn = new JButton("<-");
 
         twoMinsBtn.addActionListener(e -> setTimeLimit(2));
         fiveMinsBtn.addActionListener(e -> setTimeLimit(5));
         tenMinsBtn.addActionListener(e -> setTimeLimit(10));
+        backBtn.addActionListener(e -> updateFrame(prevFrame));
 
         chooseTimeLimitFrame.add(chooseTimeLimitLbl);
         chooseTimeLimitFrame.add(twoMinsBtn);
         chooseTimeLimitFrame.add(fiveMinsBtn);
         chooseTimeLimitFrame.add(tenMinsBtn);
+        chooseTimeLimitFrame.add(backBtn);
         
         chooseTimeLimitFrame.pack();
         chooseTimeLimitFrame.setLocationRelativeTo(mainMenuFrame);
-        chooseTimeLimitFrame.setVisible(true);
+        updateFrame(chooseTimeLimitFrame);  // Update frame;
     }
 
     private void setTimeLimit(int timeLimit)
@@ -217,35 +221,33 @@ public class GameSetup extends JFrame
 
     private void showPlayerSetup(Mode gameMode, Difficulty difficulty) 
     {
-        if(playerSetupFrame != null)
-        {
-            playerSetupFrame.setVisible(false);
-        }
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         playerSetupFrame = new JFrame("Player Setup");
-        playerSetupFrame.setLayout(new GridLayout(5, 1));
+        playerSetupFrame.setLayout(new GridLayout(3, 2));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         chooseDifficultyFrame.dispose();  // Close the previous frame
         chooseDifficultyFrame.setVisible(false); // Close the previous frame
 
-        playerQtyComboBox = new JComboBox<>(playerOptions);
         playerSetupFrame.add(new JLabel("How many local players?"));
+        playerQtyComboBox = new JComboBox<>(playerOptions);
         playerSetupFrame.add(playerQtyComboBox);
-
-        cpuQtyComboBox = new JComboBox<>(cpuOptions);
-        playerSetupFrame.add(new JLabel("How many CPUs?"));
-        playerSetupFrame.add(cpuQtyComboBox);
         playerQtyComboBox.addActionListener(e -> updateCPUOptions());
 
+        playerSetupFrame.add(new JLabel("How many CPUs?"));
+        cpuQtyComboBox = new JComboBox<>(cpuOptions);
+        playerSetupFrame.add(cpuQtyComboBox);
+
+        JButton backBtn = new JButton("<-");
+        playerSetupFrame.add(backBtn);
+        backBtn.addActionListener(e -> updateFrame(prevFrame));
+
         JButton startGameButton = new JButton("Start Game");
-
-        startGameButton.addActionListener(e -> startGame(gameMode, difficulty));
-
         playerSetupFrame.add(startGameButton);
+        startGameButton.addActionListener(e -> startGame(gameMode, difficulty));
 
         playerSetupFrame.pack();
         playerSetupFrame.setLocationRelativeTo(mainMenuFrame);
-        playerSetupFrame.setVisible(true);
+        updateFrame(playerSetupFrame);  // Update frame;
     }
 
     private void updateCPUOptions() 
@@ -253,29 +255,23 @@ public class GameSetup extends JFrame
         int localPlayerQty = (int) playerQtyComboBox.getSelectedItem();
         int maxCpuPlayers = 6 - localPlayerQty;
         Integer[] cpuOptions = new Integer[maxCpuPlayers + 1];
-        for (int i = 0; i <= maxCpuPlayers; i++) {
+        for (int i = 0; i <= maxCpuPlayers; i++)
             cpuOptions[i] = i;
-        }
+
         cpuQtyComboBox.setModel(new DefaultComboBoxModel<>(cpuOptions));
     }
 
     private void startGame(Mode gameMode, Difficulty difficulty) 
     {
-        File Leaderboard = new File(".\\" + gameMode + "_leaderboard.csv");
+        playerSetupFrame.dispose();
+        playerSetupFrame.setVisible(false);
+
+        File Leaderboard = new File("/workspace/If_You_Dare!/src/" + gameMode + "_leaderboard.csv");
         if (!Leaderboard.exists()) 
-        {
             tutorialManager.playTutorial(gameMode);
-        }
-        else if (noLeaderboardExists())
-        {
-            tutorialManager.showBeginnerTutorial();
-        }
 
         int localPlayerQty = (int) playerQtyComboBox.getSelectedItem();
         int cpuPlayerQty = (int) cpuQtyComboBox.getSelectedItem();
-
-        playerSetupFrame.dispose();
-        playerSetupFrame.setVisible(false);
 
         List<Player> players = registerPlayers(localPlayerQty, cpuPlayerQty);
 
@@ -294,31 +290,30 @@ public class GameSetup extends JFrame
         {
             game.playRound();
         }
+        // Announce the winner of the game
+        game.announceWinner();
         // Pass each player in to determine wheter or not they made it on the top 100 leaderboard
-        Leaderboard leaderBoard = new Leaderboard(players, gameMode);
+        Leaderboard leaderboard = new Leaderboard(players, gameMode);
     }
 
-    private List<Player> registerPlayers(int playerCount, int cpuCount) {
+    private List<Player> registerPlayers(int playerCount, int cpuCount) 
+    {
         List<Player> players = new ArrayList<>();
         for (int i = 1; i <= playerCount; i++) 
         {
             String localPlayerName = JOptionPane.showInputDialog(null, "Enter name for Local Player " + i + ":");
-            if (localPlayerName != null && !localPlayerName.trim().isEmpty()) {
+            if (localPlayerName != null && !localPlayerName.trim().isEmpty())
                 players.add(new LocalPlayer(localPlayerName));
-            } 
             else
-            {
                 players.add(new LocalPlayer("Player " + i));
-            }
         }
         for (int i = 1; i <= cpuCount; i++) 
-        {
             players.add(new CPUPlayer());
-        }
         return players;
     }
     public static void main(String[] args) 
     {
+        // Run the main GUI
         SwingUtilities.invokeLater(GameSetup::new);
     }
 }

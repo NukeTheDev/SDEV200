@@ -1,4 +1,9 @@
-// Brief explanation of game mode objective
+/* Special cases: 
+ * If eliminated, last player standing wins
+ * if Classic, player who reaches threshold first wins
+ * The score of a player who forfeits or is eliminated is not counted
+ * Regardless of game mode, if only one player remains after everyone else has forfeited, that player is declared the winner.
+ */
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +31,6 @@ public abstract class GameMode {
     protected void setWinner(Player player)
     {
         winner = player;
-        System.out.println("Winner: " + winner);
     }
     
     protected Player getWinner()
@@ -49,18 +53,20 @@ public abstract class GameMode {
         String message = currentPlayer.getPlayerName() + "'s turn";
         JOptionPane.showMessageDialog(null, message, "Player Prompt", JOptionPane.INFORMATION_MESSAGE);
 
-        DareCard dare = getRandomDare();       
+        DareCard dare = getRandomDare();
         processDare(currentPlayer, dare); // show the dare to the currentPlayer
+
         // Check if the game should continue after the turn
-        checkGameState(); 
+        checkGameState();
     }
 
-    private void processDare(Player player, DareCard dareCard) 
+    private void processDare(Player player, DareCard dareCard)
     {
-        if (player.isCPU()) {
+        if (player.isCPU()) 
             // CPU player's turn is handled by cpuTurn()
             cpuTurn(player, dareCard);
-        } else {
+        else 
+        {
             int response = JOptionPane.showConfirmDialog(
                 null,
                 player.getPlayerName() + ", your dare is: " + dareCard.toString() + "\nDo you accept the dare?",
@@ -79,7 +85,7 @@ public abstract class GameMode {
                             "Forfeit", JOptionPane.YES_NO_OPTION);
 
                     if (forfeitResponse == JOptionPane.YES_OPTION) 
-                        forfeit(player);
+                        player.forfeit();
                     else if (response == JOptionPane.NO_OPTION)
                         handleDareException(player, dareCard, "refused");
                 }
@@ -98,10 +104,9 @@ public abstract class GameMode {
         // Decision-making logic:
         double randomDecision = Math.random();
     
-        // 10% chance to forfeit the game
-        if (randomDecision < 0.1) {
-            System.out.println(cpuPlayerName + " has chosen to forfeit the game.");
-            forfeit(cpuPlayer);
+        // 5% chance to forfeit the game
+        if (randomDecision < 0.05) {
+            cpuPlayer.forfeit();
         }
     
         // 70% chance to accept the dare, 20% chance to refuse
@@ -121,7 +126,9 @@ public abstract class GameMode {
                 System.out.println(cpuPlayerName + " failed the dare.");
                 handleDareException(cpuPlayer, dareCard, "failed");
             }
-        } else {
+        } 
+        else 
+        {
             // CPU refuses the dare
             System.out.println(cpuPlayerName + " has refused the dare.");
             handleDareException(cpuPlayer, dareCard, "refused");
@@ -163,7 +170,7 @@ public abstract class GameMode {
         countdownTimer.stop();
 
         // Check the answer
-        if (answer == null || answer.trim().isEmpty() || answer.equals("failure")) {
+        if (answer == null || answer.trim().isEmpty()) {
             handleDareException(player, dareCard, "failed");
         } else if (dareCard.isCorrect(answer)) {
             long timeTaken = (System.currentTimeMillis() - startTime) / 1000; // Time in seconds
@@ -218,12 +225,25 @@ public abstract class GameMode {
         return dareCards.get(randomIndex);
     }
 
-    private void forfeit(Player player) {
-        JOptionPane.showMessageDialog(null, player.getPlayerName() + " has forfeited the game!");
-        players.remove(player);
+    // Utility method used for handling elimination and forfeiting
+    public void checkForLastPlayer() 
+    {
+        int activePlayers = 0;
+        Player lastActivePlayer = null;
 
-        // Continue the game with the remaining players
-        playRound();
+        // Count active players
+        for (Player player : players) {
+            if (player.isActive()) {
+                activePlayers++;
+                lastActivePlayer = player; // Keep track of the last active player
+            }
+        }
+
+        // If only one player is left, declare them the winner
+        if (activePlayers <= 1) {
+            gameActive = false;
+            setWinner(lastActivePlayer); // last player left standing
+        }
     }
 
     protected abstract void checkGameState();

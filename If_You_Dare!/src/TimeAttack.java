@@ -1,6 +1,6 @@
-// Brief explanation of game mode objective
-// TimeAttack: Players race against a set time limit to complete as many dares as 
-// possible. The player with the most points when time runs out wins.
+/* Time Attack: Players race against a set time limit to complete as many dares as possible. 
+ * The player with the most points and dare cards when time runs out wins.
+ */
 
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,9 +22,8 @@ public class TimeAttack extends GameMode
         long startTime = System.currentTimeMillis();
         while ((System.currentTimeMillis() - startTime) < remainingTime * 1000) { 
             for (Player player : players) {
-                if (gameActive) {
+                if (gameActive) 
                     playTurn(player);
-                }
             }
         }
         JOptionPane.showMessageDialog(null, "Time is up!");
@@ -43,21 +42,24 @@ public class TimeAttack extends GameMode
             int totalCurrentPlayer = (cardQty + score);
             int totalWinner = winner.getScore() + winner.getCardQty();
 
-            if (totalCurrentPlayer > totalWinner) {
+            if (totalCurrentPlayer > totalWinner)
                 winner = player; // Update the winner if the current player has a higher total
-            }
         }
         return winner; // Return the winning player
     }
 
     @Override
-    protected void checkGameState() {
-        // No special check, game ends after time limit
+    protected void checkGameState() 
+    {
+        // See if there is only one player left in the game.
+        // If there is, set them as the winner
+        checkForLastPlayer();
     }
     @Override
     protected void announceWinner()
     {
-        // Print out the winning player's details
-        System.out.println("Winner: " + winner.getPlayerName() + " with score: " + winner.getScore() + " and card quantity: " + winner.getCardQty());
+        // Show the winning player
+        JOptionPane.showMessageDialog(null, "Congratulations! " + winner.getPlayerName() + 
+        "\n You win!");
     }
 }

@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public abstract class Player 
 {
     private final String playerName;
@@ -38,14 +40,29 @@ public abstract class Player
         this.score = score;
     }
 
+    public void setActive(boolean state) 
+    {
+        this.active = state;
+    }
+
+    // Forfeiting logic for all players across all game modes.
+    public void eliminate() 
+    {
+        JOptionPane.showMessageDialog(null, this.getPlayerName() + " has been eliminated!");
+        setActive(false);
+    }
+
+    // Elimination logic for all players across all game modes.
+    public void forfeit() 
+    {
+        JOptionPane.showMessageDialog(null, this.getPlayerName() + " has chosen to forfeit!");
+        setActive(false);
+    }
+
     public boolean isActive() 
     {
         return active;
     }
-
-    public void eliminate() 
-    {
-        this.active = false;
-    }
+    
     public abstract boolean isCPU();
 }
