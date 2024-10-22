@@ -1,0 +1,72 @@
+What is the capital of Australia?,20,EASY,Geography,10,Canberra
+What is 6 × 7?,20,EASY,Math,10,42
+What is the chemical symbol for oxygen?,20,EASY,Science,5,O
+Who wrote "Harry Potter"?,30,EASY,Literature,10,J.K. Rowling
+What is the largest mammal?,20,EASY,Science,5,Blue Whale
+What is the capital of Canada?,20,EASY,Geography,10,Ottawa
+What is 12 + 15?,20,EASY,Math,15,27
+Which planet is known as the Red Planet?,20,EASY,Science,10,Mars
+What is the tallest mountain on Earth?,30,EASY,Geography,10,Mount Everest
+Who painted the Sistine Chapel?,30,EASY,Art,10,Michelangelo
+What is the largest continent?,20,EASY,Geography,10,Asia
+What is 50 ÷ 2?,20,EASY,Math,5,25
+What is the first letter of the Greek alphabet?,20,EASY,Language,10,Alpha
+What color is the sky on a clear day?,10,EASY,Science,5,Blue
+Who invented the telephone?,30,EASY,Technology,10,Alexander Graham Bell
+What is the square root of 64?,20,EASY,Math,5,8
+What is the main ingredient in bread?,20,EASY,Cooking,10,Flour
+What is the boiling point of water in Celsius?,20,EASY,Science,5,100
+What is the fastest land animal?,20,EASY,Science,10,Cheetah
+Which element has the atomic number 1?,20,EASY,Science,5,Hydrogen
+What is 3 × 9?,20,EASY,Math,5,27
+How many continents are there on Earth?,20,EASY,Geography,10,7
+What is the capital of Germany?,30,EASY,Geography,10,Berlin
+Who was the first man to walk on the moon?,30,EASY,History,10,Neil Armstrong
+What is the primary color of grass?,10,EASY,Science,5,Green
+
+What is the square root of 81?,30,MEDIUM,Math,15,9
+Who wrote "The Great Gatsby"?,40,MEDIUM,Literature,20,F. Scott Fitzgerald
+Name the longest river in South America.,45,MEDIUM,Geography,20,Amazon
+What is the capital of Italy?,30,MEDIUM,Geography,15,Rome
+Who developed the theory of relativity?,40,MEDIUM,Science,20,Albert Einstein
+What is 144 ÷ 12?,30,MEDIUM,Math,15,12
+What is the currency of Japan?,30,MEDIUM,Geography,20,Yen
+Which language is primarily spoken in Mexico?,30,MEDIUM,Language,15,Spanish
+What is the second-largest planet in our solar system?,30,MEDIUM,Science,20,Saturn
+What is the chemical formula for carbon dioxide?,30,MEDIUM,Science,15,CO2
+Who discovered penicillin?,40,MEDIUM,Science,20,Alexander Fleming
+What is the main ingredient in sushi?,30,MEDIUM,Cooking,15,Rice
+What is 20% of 200?,30,MEDIUM,Math,15,40
+What year did the United States declare independence?,30,MEDIUM,History,20,1776
+Who directed the movie "Jurassic Park"?,40,MEDIUM,Entertainment,20,Steven Spielberg
+Name two primary colors.,20,MEDIUM,Art,15,Red,Blue
+How many degrees are in a circle?,20,MEDIUM,Math,15,360
+What is the first element on the periodic table?,20,MEDIUM,Science,15,Hydrogen
+Who is known as the father of computers?,40,MEDIUM,Technology,20,Charles Babbage
+What is the largest desert in the world?,40,MEDIUM,Geography,20,Sahara Desert
+What does "CPU" stand for in computing?,30,MEDIUM,Technology,15,Central Processing Unit
+How many time zones are there in the world?,30,MEDIUM,Geography,15,24
+Who painted "The Starry Night"?,40,MEDIUM,Art,20,Vincent van Gogh
+What is the capital of Spain?,30,MEDIUM,Geography,15,Madrid
+What is the smallest prime number?,30,MEDIUM,Math,15,2
+
+What year did the Titanic sink?,30,HARD,History,25,1912
+What is the speed of light in meters per second?,60,HARD,Science,30,299792458
+Name three elements in the periodic table that are gases.,60,HARD,Science,40,Helium,Oxygen,Nitrogen
+Who was the 16th president of the United States?,45,HARD,History,35,Abraham Lincoln
+What is the capital of Iceland?,45,HARD,Geography,35,Reykjavik
+What is the Pythagorean theorem?,60,HARD,Math,40,a² + b² = c²
+Name three countries that start with the letter "C.",60,HARD,Geography,40,Canada,China,Chile
+Who is the author of "War and Peace"?,60,HARD,Literature,40,Leo Tolstoy
+What is the atomic number of gold?,45,HARD,Science,35,79
+Who invented the World Wide Web?,60,HARD,Technology,40,Tim Berners-Lee
+What year did the Berlin Wall fall?,45,HARD,History,35,1989
+Name three constellations.,60,HARD,Science,40,Orion,Ursa Major,Cassiopeia
+What is the capital of Switzerland?,45,HARD,Geography,35,Bern
+Name two types of triangles.,45,HARD,Math,35,Equilateral,Isosceles
+What is the tallest building in the world?,45,HARD,Geography,35,Burj Khalifa
+What is the capital of Turkey?,45,HARD,Geography,35,Ankara
+Name the first element in Group 1 of the periodic table.,60,HARD,Science,40,Lithium
+What does "HTTP" stand for?,60,HARD,Technology,40,HyperText Transfer Protocol
+Who wrote "Crime and Punishment"?,60,HARD,Literature,40,Fyodor Dostoevsky
+What is the capital of South Korea?,45,HARD,Geography,35,Seoul

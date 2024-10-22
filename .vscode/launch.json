@@ -6,6 +6,97 @@
     "configurations": [
         {
             "type": "java",
+            "name": "StudentsStanding2",
+            "request": "launch",
+            "mainClass": "ChapterEleven.Excercise11_7.StudentsStanding2",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "ReadStateFile",
+            "request": "launch",
+            "mainClass": "ChapterEleven.Tutorial11.ReadStateFile",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "StudentsStanding",
+            "request": "launch",
+            "mainClass": "ChapterEleven.Excercise11_7.StudentsStanding",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "JResortCalculator",
+            "request": "launch",
+            "mainClass": "ChapterFourteen.Tutorial14.JResortCalculator",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "UseBook",
+            "request": "launch",
+            "mainClass": "ChapterNine.Excercise9_8.UseBook",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "BookArray",
+            "request": "launch",
+            "mainClass": "ChapterNine.Excercise9_8.BookArray",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "JDemoFrameThatCloses",
+            "request": "launch",
+            "mainClass": "ChapterFourteen.Tutorial14.JDemoFrameThatCloses",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "JDemoFrame",
+            "request": "launch",
+            "mainClass": "ChapterFourteen.Tutorial14.JDemoFrame",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "JHelloDemo",
+            "request": "launch",
+            "mainClass": "ChapterFourteen.Tutorial14.JHelloDemo",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "ExceptionDemo2",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.ExceptionDemo2",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "UseCustomerAccount",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.UseCustomerAccount",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "DivisionMistakeCaught3",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.DivisionMistakeCaught3",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
+            "name": "DivisionMistakeCaught2",
+            "request": "launch",
+            "mainClass": "ChapterTen.Tutorial10.DivisionMistakeCaught2",
+            "projectName": "workspace_1b93b146"
+        },
+        {
+            "type": "java",
             "name": "CalculatorDemo",
             "request": "launch",
             "mainClass": "ChapterTen.Tutorial10.CalculatorDemo",

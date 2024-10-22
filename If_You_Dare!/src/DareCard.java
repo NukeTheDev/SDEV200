@@ -1,23 +1,54 @@
-public class DareCard {
-    private String question;
-    private int timeLimit;
-    private String difficulty;
-    private String category;
-    private int worth;
-    private String answer;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-    public DareCard(String question, int timeLimit, String difficulty, String category, int worth, String answer) 
-    {
-        this.question = question;
+public class DareCard {
+    private final String dareText;
+    private final int timeLimit; // in seconds
+    private final String difficulty;
+    private final String category;
+    private final int worth;
+    private final String answer;
+
+    public DareCard(String dareText, int timeLimit, String difficulty, String category, int points, String answer) {
+        this.dareText = dareText;
         this.timeLimit = timeLimit;
         this.difficulty = difficulty;
         this.category = category;
-        this.worth = worth;
+        this.worth = points;
         this.answer = answer;
     }
 
-    public String getQuestion() {
-        return question;
+    public static List<DareCard> loadCsv(String filePath, Difficulty diff) {
+        List<DareCard> dareCards = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length == 6) {
+                    String dareText = fields[0].trim();
+                    int timeLimit = Integer.parseInt(fields[1].trim());
+                    String difficulty = fields[2].trim();
+                    String category = fields[3].trim();
+                    int worth = Integer.parseInt(fields[4].trim());
+                    String answer = fields[5].trim();
+                    
+                    // Check if the difficulty from the CSV matches the passed enum value
+                    if (difficulty.equals(diff.name())) 
+                        dareCards.add(new DareCard(dareText, timeLimit, difficulty, category, worth, answer));
+                }
+            }
+        } 
+        catch (IOException e) {
+            System.err.println("Error reading dares CSV file: " + e.getMessage());
+        }
+        return dareCards;
+    }
+
+    public String getdareText() {
+        return dareText;
     }
 
     public int getTimeLimit() {
@@ -36,8 +67,22 @@ public class DareCard {
         return worth;
     }
 
-    public String getAnswer() 
-    {
-        return answer;
+    public boolean isCorrect(String userAnswer) {
+        return userAnswer.equalsIgnoreCase(answer);
+    }
+
+    // toString method for display a dare card
+    @Override
+    public String toString() {
+        return String.format("""
+                             
+                             Dare details:
+                             Time Limit: %d seconds
+                             Difficulty: %s
+                             Category: %s
+                             Worth: %d points
+                             """,
+            timeLimit, difficulty, category, worth
+        );
     }
 }
